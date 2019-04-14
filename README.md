@@ -1,6 +1,6 @@
 # Instructions
 
-Clone this repository into `~/.dotfiles`, and and run
+Clone this repository into `~/.dotfiles`, and run
 
 ```
 $ ~/.dotfiles/.install
