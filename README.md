@@ -1,8 +1,10 @@
 # Instructions
 
-Clone this repository into `~/.dotfiles`, and create symlinks for each file into your home directory.
+Clone this repository into `~/.dotfiles`, and and run
 
 ```
-$ ln -s ~/.dotfiles/.zshrc ~
+$ ~/.dotfiles/.install
 ```
 
+Installing this will create symlinks to .bashrc and .zshrc in your home directory,
+so you will need to make sure that those files do not already exist.

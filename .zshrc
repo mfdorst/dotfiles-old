@@ -1,3 +1,6 @@
+# To set zsh as your default shell, run:
+# chsh -s /bin/zsh
+
 # To install antigen:
 # curl -L git.io/antigen > .antigen.zsh
 
