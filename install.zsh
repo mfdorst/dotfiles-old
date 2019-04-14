@@ -1,22 +1,33 @@
 #!/bin/zsh
 
-# Quit if ~/.dotfiles/.installed exists - this file is created by this script,
-# so it's existence indicates that this script has already been run.
+file_exists()
+{
+    echo "$1 exists. Please remove it and rerun this script if you would like to symlink it."
+}
 
-if [[ -a ~/.dotfiles/.installed ]]; then
-    echo "This script has already been run."
-    echo "If you would like to run it again, run:"
-    echo "rm ~/.dotfiles/.installed"
-    echo "and run this script again."
-    exit 1
+prompt_symlink()
+{
+    echo "Would you like to symlink $1? [y/N]: "
+}
+
+if [[ -a ~/.bashrc ]]; then
+    file_exists '~/.bashrc'
+else
+    prompt_symlink '~/.zshrc'
+    read link_bashrc
+
+    if echo $link_bashrc | grep -Eqiw 'y|yes'; then
+        ln -s ~/.dotfiles/.bashrc ~
+    fi
 fi
 
-# Create the .installed file, to prevent accidental re-running of this script
-
-touch ~/.dotfiles/.installed
-
-# Create symlinks for the following files
-
-ln -s ~/.dotfiles/.bashrc ~
-ln -s ~/.dotfiles/.zshrc ~
+if [[ -a ~/.zshrc ]]; then
+    file_exists '~/.zshrc'
+else
+    prompt_symlink '~/.zshrc'
+    read link_zshrc
+    if echo $link_zshrc | grep -Eqiw 'y|yes'; then
+        ln -s ~/.dotfiles/.zshrc ~
+    fi
+fi
 
