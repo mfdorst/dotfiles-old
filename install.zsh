@@ -1,33 +1,21 @@
 #!/bin/zsh
 
-file_exists()
+symlink_prompt()
 {
-    echo "$1 exists. Please remove it and rerun this script if you would like to symlink it."
+    if [[ -a "$HOME/$1" ]]; then
+        echo "~/$1 exists. Please remove it and rerun this script if you would like to symlink it."
+    else
+        echo "Would you like to symlink $1? [y/n]"
+        read link
+        if echo $link | grep -Eqiw 'y|yes'; then
+            ln -s "$HOME/.dotfiles/$1" ~
+        fi
+    fi
 }
 
-prompt_symlink()
-{
-    echo "Would you like to symlink $1? [y/N]: "
-}
+symlink_prompt '.bashrc'
 
-if [[ -a ~/.bashrc ]]; then
-    file_exists '~/.bashrc'
-else
-    prompt_symlink '~/.bashrc'
-    read link_bashrc
+symlink_prompt '.zshrc'
 
-    if echo $link_bashrc | grep -Eqiw 'y|yes'; then
-        ln -s ~/.dotfiles/.bashrc ~
-    fi
-fi
-
-if [[ -a ~/.zshrc ]]; then
-    file_exists '~/.zshrc'
-else
-    prompt_symlink '~/.zshrc'
-    read link_zshrc
-    if echo $link_zshrc | grep -Eqiw 'y|yes'; then
-        ln -s ~/.dotfiles/.zshrc ~
-    fi
-fi
+symlink_prompt '.vimrc'
 
