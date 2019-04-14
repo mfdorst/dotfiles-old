@@ -3,7 +3,7 @@
 Clone this repository into `~/.dotfiles`, and run
 
 ```
-$ ~/.dotfiles/.install
+$ ~/.dotfiles/install.zsh
 ```
 
 Installing this will create symlinks to `.bashrc` and `.zshrc` in your home

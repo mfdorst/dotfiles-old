@@ -13,7 +13,7 @@ prompt_symlink()
 if [[ -a ~/.bashrc ]]; then
     file_exists '~/.bashrc'
 else
-    prompt_symlink '~/.zshrc'
+    prompt_symlink '~/.bashrc'
     read link_bashrc
 
     if echo $link_bashrc | grep -Eqiw 'y|yes'; then
