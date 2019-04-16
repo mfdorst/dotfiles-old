@@ -13,7 +13,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 #antigen bundle nojhan/liquidprompt
 
 # Load the theme
-if [[ -a ~/.zsh_theme ]]; then
+if [[ -a "$HOME/.zsh_theme" ]]; then
     source ~/.zsh_theme
 else
     antigen theme robbyrussell
