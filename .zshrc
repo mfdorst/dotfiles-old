@@ -1,5 +1,4 @@
-source .antigen.zsh
-
+source "$HOME/.antigen.zsh"
 antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh)
@@ -14,7 +13,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Load the theme
 if [[ -a "$HOME/.zsh_theme" ]]; then
-    source ~/.zsh_theme
+    source "$HOME/.zsh_theme"
 else
     antigen theme robbyrussell
 fi

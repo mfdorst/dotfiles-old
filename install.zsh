@@ -44,7 +44,7 @@ if [[ ! -a "$HOME/.zsh_theme" ]]; then
     if echo $chose_theme | grep -Eqiw 'y|yes'; then
         echo "What theme would you like?"
         read theme
-        echo $theme > ~/.zsh_theme
+        echo "antigen theme $theme" > ~/.zsh_theme
     fi
 fi
 
