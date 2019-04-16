@@ -1,0 +1,15 @@
+[user]
+    email = m@mdorst.net
+    user = git
+	name = Michael Dorst
+[alias]
+	s = status -s -u
+	logg = log --oneline --graph
+	c = commit -m
+	ls = ls-tree -r --name-only
+[core]
+	pager = cat
+[color]
+	ui = always
+[credential]
+	helper = store

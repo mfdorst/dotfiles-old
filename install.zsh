@@ -28,11 +28,23 @@ symlink_prompt '.zshrc'
 
 symlink_prompt '.vimrc'
 
+symlink_prompt '.gitconfig'
+
 if [[ $SHELL != '/bin/zsh' ]]; then
     echo "Your shell is currently set to $SHELL. Would you like to change it to /bin/zsh?"
     read change_shell
     if echo $change_shell | grep -Eqiw 'y|yes'; then
         chsh -s /bin/zsh
+    fi
+fi
+
+if [[ ! -a "$HOME/.zsh_theme" ]]; then
+    echo "Would you like to install a theme? [y/n]"
+    read chose_theme
+    if echo $chose_theme | grep -Eqiw 'y|yes'; then
+        echo "What theme would you like?"
+        read theme
+        echo $theme > ~/.zsh_theme
     fi
 fi
 
