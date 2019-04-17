@@ -2,15 +2,19 @@
 
 symlink_prompt()
 {
-    if [[ -a "$HOME/$1" ]]; then
-        echo "~/$1 exists. Please remove it and rerun this script if you would like to symlink it."
+    if [[ -a "$HOME/$1" || -h "$HOME/$1" ]]; then
+        echo "$1 exists, would you like to overwrite it? [y/n]"
     else
         echo "Would you like to symlink $1? [y/n]"
-        local link
-        read link
-        if echo $link | grep -Eqiw 'y|yes'; then
-            ln -s "$HOME/.dotfiles/$1" ~
+    fi
+
+    local link
+    read link
+    if echo $link | grep -Eqiw 'y|yes'; then
+        if [[ -a "$HOME/$1" || -h "$HOME/$1" ]]; then
+            rm "$HOME/$1"
         fi
+        ln -s "$HOME/.dotfiles/files/$1" ~
     fi
 }
 
@@ -22,13 +26,9 @@ if [[ ! -a "$HOME/.antigen.zsh" ]]; then
     fi
 fi
 
-symlink_prompt '.bashrc'
-
-symlink_prompt '.zshrc'
-
-symlink_prompt '.vimrc'
-
-symlink_prompt '.gitconfig'
+for f in ${HOME}/.dotfiles/files/*(N) ${HOME}/.dotfiles/files/.*(N); do
+    symlink_prompt $(basename $f)
+done
 
 if [[ $SHELL != '/bin/zsh' ]]; then
     echo "Your shell is currently set to $SHELL. Would you like to change it to /bin/zsh?"
