@@ -1,4 +1,4 @@
-source "$HOME/.antigen.zsh"
+source "$HOME/.antigen/antigen.zsh"
 antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh)
@@ -8,8 +8,8 @@ antigen bundle heroku
 # Syntax highlighting bundle
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-# Load liquidprompt
-#antigen bundle nojhan/liquidprompt
+# Load vi-mode
+antigen bundle vi-mode
 
 # Load the theme
 if [[ -a "$HOME/.zsh_theme" ]]; then
