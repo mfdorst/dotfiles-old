@@ -31,7 +31,6 @@ fi
 
 antigen apply
 
-
 # Disable bell
 unsetopt BEEP
 
@@ -46,4 +45,11 @@ mcd()
 }
 
 alias ducks='du -cksh * | sort -hr'
+
+alias h='head -n'
+
+# Load local rc
+if [[ -e "$HOME/.zshrc.local" ]]; then
+    source "$HOME/.zshrc.local"
+fi
 
