@@ -27,8 +27,11 @@ symlink_prompt()
 
         local link
         read link
-        if echo $link | grep -Eqiw 'y|yes'; then
+        if echo $link | grep -Eqiw 'n|no'; then
+            echo "$1 was not symlinked."
+        else
             symlink $1
+            echo "$1 was symlinked."
         fi
     fi
 }
@@ -45,8 +48,11 @@ if [[ ! -e "$HOME/.antigen" ]]; then
     else
         echo "Would you like to install antigen? [Y | n]"
         read should_install_antigen
-        if [[ ! $(echo $should_install_antigen | grep -Eqiw 'n|no') ]]; then
+        if echo $should_install_antigen | grep -Eqiw 'n|no'; then
+            echo "Antigen was not installed."
+        else
             install_antigen
+            echo "Antigen was installed."
         fi
     fi
 fi
@@ -63,6 +69,9 @@ if [[ $SHELL != '/bin/zsh' ]]; then
         read change_shell
         if echo $change_shell | grep -Eqiw 'y|yes'; then
             chsh -s /bin/zsh
+            echo "Your shell was changed to /bin/zsh."
+        else
+            echo "Your shell was not changed."
         fi
     fi
 fi
@@ -75,6 +84,11 @@ if [[ ! -e "$HOME/.zsh_theme" ]]; then
             echo "What theme would you like?"
             read theme
             echo "antigen theme $theme" > ~/.zsh_theme
+            echo "Your theme was changed to $theme."
+        else
+            echo "Your theme was set to github.com/anthropomorphic/spaceship-prompt. Edit .zsh_theme to change it."
         fi
     fi
 fi
+
+echo "Run `exec zsh` to begin using your new shell."
