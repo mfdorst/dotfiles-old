@@ -1,3 +1,7 @@
+####################################
+## TO CUSTOMIZE, USE .zshrc.local ##
+####################################
+
 source "$HOME/.antigen/antigen.zsh"
 antigen use oh-my-zsh
 
@@ -52,4 +56,3 @@ alias h='head -n'
 if [[ -e "$HOME/.zshrc.local" ]]; then
     source "$HOME/.zshrc.local"
 fi
-
