@@ -8,30 +8,30 @@ fi
 
 symlink()
 {
-    if [[ -a "$HOME/$1" || -h "$HOME/$1" ]]; then
-        rm "$HOME/$1"
+    if [[ -a "$HOME/$2" || -h "$HOME/$2" ]]; then
+        rm "$HOME/$2"
     fi
-    ln -s "$HOME/.dotfiles/universal/$1" ~
+    ln -s "$HOME/.dotfiles/$1/$2" ~
+    echo "Symlinked $2 -> .dotfiles/$1/$2\n"
 }
 
 symlink_prompt()
 {
     if [[ "$DEFAULTS" = "yes" ]]; then
-        symlink $1
+        symlink $1 $2
     else
-        if [[ -e "$HOME/$1" || -h "$HOME/$1" ]]; then
-            echo "$1 exists, would you like to overwrite it? [Y | n]"
+        if [[ -e "$HOME/$2" || -h "$HOME/$2" ]]; then
+            printf %s "$2 exists, would you like to overwrite it? [Y | n] "
         else
-            echo "Would you like to symlink $1? [Y | n]"
+            printf %s "Would you like to symlink $2? [Y | n] "
         fi
 
         local link
         read link
         if echo $link | grep -Eqiw 'n|no'; then
-            echo "$1 was not symlinked."
+            echo "$2 was not symlinked.\n"
         else
-            symlink $1
-            echo "$1 was symlinked."
+            symlink $1 $2
         fi
     fi
 }
@@ -40,6 +40,7 @@ install_antigen()
 {
     mkdir "$HOME/.antigen"
     curl -L git.io/antigen > "$HOME/.antigen/antigen.zsh"
+    echo "Antigen was installed."
 }
 
 if [[ ! -e "$HOME/.antigen" ]]; then
@@ -52,15 +53,84 @@ if [[ ! -e "$HOME/.antigen" ]]; then
             echo "Antigen was not installed."
         else
             install_antigen
-            echo "Antigen was installed."
         fi
     fi
+else
+    echo "Antigen is already installed."
 fi
 
 for f in `ls -a "$HOME"/.dotfiles/universal | grep -vE "^\.{1,2}$"`; do
-  [ -e "$HOME/.dotfiles/universal/$f" ] || continue
-  symlink_prompt $(basename "$f")
+    [ -e "$HOME/.dotfiles/universal/$f" ] || continue
+    symlink_prompt universal "$f"
 done
+
+#### MacOS only ####
+install_brew()
+{
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    echo "Homebrew was installed."
+}
+
+install_brew_prompt()
+{
+    # If brew is not installed
+    if [[ $(which brew &> /dev/null) ]]; then
+        if [[ "$DEFAULTS" = "yes" ]]; then
+            install_brew
+        else
+            printf %s "Would you like to install homebrew? [Y | n] "
+            read should_install_brew
+            if echo $should_install_brew | grep -Eqiw 'n|no'; then
+                echo "Homebrew was not installed.\n"
+            else
+                install_brew
+            fi
+        fi
+    else
+        echo "Homebrew is already installed."
+    fi
+}
+
+install_coreutils()
+{
+    brew install coreutils
+    echo "Coreutils installed."
+}
+
+install_coreutils_prompt()
+{
+    # If brew is installed
+    if which brew &> /dev/null; then
+        # If coreutils is not installed
+        if [[ $(which gls &> /dev/null) ]]; then
+            if [[ "$DEFAULTS" = "yes" ]]; then
+                install_coreutils
+            else
+                echo "Would you like to install coreutils? [Y | n]"
+                read should_install_coreutils
+                if echo $should_install_coreutils | grep -Eqiw 'n|no'; then
+                    echo "Coreutils was not installed."
+                else
+                    install_coreutils
+                fi
+            fi
+        else
+            echo "Coreutils is already installed."
+        fi
+    else
+        echo "Homebrew is not installed."
+    fi
+}
+#### End MacOS only ####
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    symlink_prompt platform_specific .zshrc.linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "MacOS detected. MacOS specific options:"
+    symlink_prompt platform_specific .zshrc.macos
+    install_brew_prompt
+    install_coreutils_prompt
+fi
 
 if [[ $SHELL != '/bin/zsh' ]]; then
     if [[ "$DEFAULTS" = "yes" ]]; then

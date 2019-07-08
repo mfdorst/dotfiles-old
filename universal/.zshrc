@@ -52,6 +52,15 @@ alias ducks='du -cksh * | sort -hr'
 
 alias h='head -n'
 
+# Load platform specific rc files
+if [[ -e "$HOME/.zshrc.macos" ]]; then
+    source "$HOME/.zshrc.macos"
+fi
+
+if [[ -e "$HOME/.zshrc.ubuntu" ]]; then
+    source "$HOME/.zshrc.macos"
+fi
+
 # Load local rc
 if [[ -e "$HOME/.zshrc.local" ]]; then
     source "$HOME/.zshrc.local"
