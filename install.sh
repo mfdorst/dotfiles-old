@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 if [[ "$1" = "-y" ]]; then
     DEFAULTS=yes
@@ -11,7 +11,7 @@ symlink()
     if [[ -a "$HOME/$1" || -h "$HOME/$1" ]]; then
         rm "$HOME/$1"
     fi
-    ln -s "$HOME/.dotfiles/files/$1" ~
+    ln -s "$HOME/.dotfiles/universal/$1" ~
 }
 
 symlink_prompt()
@@ -57,8 +57,9 @@ if [[ ! -e "$HOME/.antigen" ]]; then
     fi
 fi
 
-for f in ${HOME}/.dotfiles/files/*(N) ${HOME}/.dotfiles/files/.*(N); do
-    symlink_prompt $(basename $f)
+for f in `ls -a "$HOME"/.dotfiles/universal | grep -vE "^\.{1,2}$"`; do
+  [ -e "$HOME/.dotfiles/universal/$f" ] || continue
+  symlink_prompt $(basename "$f")
 done
 
 if [[ $SHELL != '/bin/zsh' ]]; then
@@ -91,4 +92,4 @@ if [[ ! -e "$HOME/.zsh_theme" ]]; then
     fi
 fi
 
-echo "Run `exec zsh` to begin using your new shell."
+echo "Run 'exec zsh' to begin using your new shell."
