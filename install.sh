@@ -138,9 +138,9 @@ install_coreutils_prompt()
 }
 #### End MacOS only ####
 
-if [ "$OSTYPE" == "linux-gnu" ]; then
+if [ "$OSTYPE" = "linux-gnu" ]; then
     symlink_prompt platform_specific .zshrc.linux
-elif [ "$OSTYPE" == "darwin"* ]; then
+elif [ "$OSTYPE" = "darwin"* ]; then
     echo "MacOS detected. MacOS specific options:"
     symlink_prompt platform_specific .zshrc.macos
     install_brew_prompt
