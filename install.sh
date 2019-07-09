@@ -12,7 +12,7 @@ symlink()
         rm "$HOME/$2"
     fi
     ln -s "$HOME/.dotfiles/$1/$2" ~
-    echo "Symlinked $2 -> .dotfiles/$1/$2\n"
+    echo "Symlinked $2 -> .dotfiles/$1/$" && echo
 }
 
 symlink_prompt()
@@ -29,7 +29,7 @@ symlink_prompt()
         local link
         read link
         if echo $link | grep -Eqiw 'n|no'; then
-            echo "$2 was not symlinked.\n"
+            echo "$2 was not symlinked." && echo
         else
             symlink $1 $2
         fi
@@ -56,7 +56,7 @@ if [ ! -e "$HOME/.antigen" ]; then
         fi
     fi
 else
-    echo "Antigen is already installed.\n"
+    echo "Antigen is already installed." && echo
 fi
 
 if [ ! -e "$HOME/.zsh_theme" ]; then
@@ -69,7 +69,7 @@ if [ ! -e "$HOME/.zsh_theme" ]; then
             echo "antigen theme $theme" > ~/.zsh_theme
             echo "Your theme was changed to $theme."
         else
-            echo "Your theme was set to anthropomorphic/spaceship-prompt. Edit .zsh_theme to change it.\n"
+            echo "Your theme was set to anthropomorphic/spaceship-prompt. Edit .zsh_theme to change it" && echo
         fi
     fi
 fi
@@ -96,7 +96,7 @@ install_brew_prompt()
             printf %s "Would you like to install homebrew? [Y | n] "
             read should_install_brew
             if echo $should_install_brew | grep -Eqiw 'n|no'; then
-                echo "Homebrew was not installed.\n"
+                echo "Homebrew was not installed." && echo
             else
                 install_brew
             fi
