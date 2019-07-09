@@ -8,7 +8,7 @@ fi
 
 symlink()
 {
-    if [ -a "$HOME/$2" ] || [ -h "$HOME/$2" ]; then
+    if [ -e "$HOME/$2" ] || [ -h "$HOME/$2" ]; then
         rm "$HOME/$2"
     fi
     ln -s "$HOME/.dotfiles/$1/$2" ~
