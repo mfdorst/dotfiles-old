@@ -8,7 +8,7 @@
 	c = commit -m
 	ls = ls-tree -r --name-only
 [core]
-	pager = cat
+	pager = less -X -F
 [color]
 	ui = always
 [credential]
