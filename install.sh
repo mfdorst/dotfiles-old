@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [[ "$1" = "-y" ]]; then
+if [ "$1" = "-y" ]; then
     DEFAULTS=yes
 else
     DEFAULTS=no
@@ -8,7 +8,7 @@ fi
 
 symlink()
 {
-    if [[ -a "$HOME/$2" || -h "$HOME/$2" ]]; then
+    if [ -a "$HOME/$2" ] || [ -h "$HOME/$2" ]; then
         rm "$HOME/$2"
     fi
     ln -s "$HOME/.dotfiles/$1/$2" ~
@@ -17,10 +17,10 @@ symlink()
 
 symlink_prompt()
 {
-    if [[ "$DEFAULTS" = "yes" ]]; then
+    if [ "$DEFAULTS" = "yes" ]; then
         symlink $1 $2
     else
-        if [[ -e "$HOME/$2" || -h "$HOME/$2" ]]; then
+        if [ -e "$HOME/$2" ] || [ -h "$HOME/$2" ]; then
             printf %s "$2 exists, would you like to overwrite it? [Y | n] "
         else
             printf %s "Would you like to symlink $2? [Y | n] "
@@ -43,8 +43,8 @@ install_antigen()
     echo "Antigen was installed."
 }
 
-if [[ ! -e "$HOME/.antigen" ]]; then
-    if [[ "$DEFAULTS" = "yes" ]]; then
+if [ ! -e "$HOME/.antigen" ]; then
+    if [ "$DEFAULTS" = "yes" ]; then
         install_antigen
     else
         echo "Would you like to install antigen? [Y | n]"
@@ -56,7 +56,22 @@ if [[ ! -e "$HOME/.antigen" ]]; then
         fi
     fi
 else
-    echo "Antigen is already installed."
+    echo "Antigen is already installed.\n"
+fi
+
+if [ ! -e "$HOME/.zsh_theme" ]; then
+    if [ "$DEFAULTS" = "no" ]; then
+        printf %s "The default Oh My Zsh theme is spaceship-prompt. Would you like to change it? [y | N] "
+        read chose_theme
+        if echo $chose_theme | grep -Eqiw 'y|yes'; then
+            echo "What theme would you like?"
+            read theme
+            echo "antigen theme $theme" > ~/.zsh_theme
+            echo "Your theme was changed to $theme."
+        else
+            echo "Your theme was set to anthropomorphic/spaceship-prompt. Edit .zsh_theme to change it.\n"
+        fi
+    fi
 fi
 
 for f in `ls -a "$HOME"/.dotfiles/universal | grep -vE "^\.{1,2}$"`; do
@@ -74,8 +89,8 @@ install_brew()
 install_brew_prompt()
 {
     # If brew is not installed
-    if [[ $(which brew &> /dev/null) ]]; then
-        if [[ "$DEFAULTS" = "yes" ]]; then
+    if [ $(which brew &> /dev/null) ]; then
+        if [ "$DEFAULTS" = "yes" ]; then
             install_brew
         else
             printf %s "Would you like to install homebrew? [Y | n] "
@@ -102,8 +117,8 @@ install_coreutils_prompt()
     # If brew is installed
     if which brew &> /dev/null; then
         # If coreutils is not installed
-        if [[ $(which gls &> /dev/null) ]]; then
-            if [[ "$DEFAULTS" = "yes" ]]; then
+        if [ $(which gls &> /dev/null) ]; then
+            if [ "$DEFAULTS" = "yes" ]; then
                 install_coreutils
             else
                 echo "Would you like to install coreutils? [Y | n]"
@@ -123,17 +138,17 @@ install_coreutils_prompt()
 }
 #### End MacOS only ####
 
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
+if [ "$OSTYPE" == "linux-gnu" ]; then
     symlink_prompt platform_specific .zshrc.linux
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+elif [ "$OSTYPE" == "darwin"* ]; then
     echo "MacOS detected. MacOS specific options:"
     symlink_prompt platform_specific .zshrc.macos
     install_brew_prompt
     install_coreutils_prompt
 fi
 
-if [[ $SHELL != '/bin/zsh' ]]; then
-    if [[ "$DEFAULTS" = "yes" ]]; then
+if [ $SHELL != '/bin/zsh' ]; then
+    if [ "$DEFAULTS" = "yes" ]; then
         chsh -s /bin/zsh
     else
         echo "Your shell is currently set to $SHELL. Would you like to change it to /bin/zsh? [y | N]"
@@ -143,21 +158,6 @@ if [[ $SHELL != '/bin/zsh' ]]; then
             echo "Your shell was changed to /bin/zsh."
         else
             echo "Your shell was not changed."
-        fi
-    fi
-fi
-
-if [[ ! -e "$HOME/.zsh_theme" ]]; then
-    if [[ "$DEFAULTS" = "no" ]]; then
-        echo "Would you like to install a theme? [y | N]"
-        read chose_theme
-        if echo $chose_theme | grep -Eqiw 'y|yes'; then
-            echo "What theme would you like?"
-            read theme
-            echo "antigen theme $theme" > ~/.zsh_theme
-            echo "Your theme was changed to $theme."
-        else
-            echo "Your theme was set to github.com/anthropomorphic/spaceship-prompt. Edit .zsh_theme to change it."
         fi
     fi
 fi
