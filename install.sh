@@ -139,6 +139,7 @@ install_coreutils_prompt()
 #### End MacOS only ####
 
 if [ $(uname) = "Linux" ]; then
+    echo "Linux detected. Linux specific options:"
     symlink_prompt platform_specific .zshrc.linux
 elif [ $(uname) = "Darwin" ]; then
     echo "MacOS detected. MacOS specific options:"
