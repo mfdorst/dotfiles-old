@@ -152,7 +152,7 @@ if [ $SHELL != '/bin/zsh' ]; then
     if [ "$DEFAULTS" = "yes" ]; then
         chsh -s /bin/zsh
     else
-        echo "Your shell is currently set to $SHELL. Would you like to change it to /bin/zsh? [y | N]"
+        printf %s "Your shell is currently set to $SHELL. Would you like to change it to /bin/zsh? [y | N] "
         read change_shell
         if echo $change_shell | grep -Eqiw 'y|yes'; then
             chsh -s /bin/zsh
