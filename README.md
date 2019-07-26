@@ -18,8 +18,10 @@ or
 $ ~/.dotfiles/install.sh -y
 ```
 to accept all the default options without being asked.
+_Note that this may overwrite existing dotfiles without warning._
 
-Installing this will create symlinks in your home directory to each file in `files`.
+Installing this will create symlinks in your home directory to each file in `universal`,
+and any appropriate files in `platform_specific`.
 If these files already exist, you will be prompted to replace them. If you want to
 back up your current version, run
 
