@@ -4,7 +4,7 @@
 	name = Michael Dorst
 [alias]
 	s = status -s -u
-	logg = log --oneline --graph
+	l = log --oneline --graph
 	c = commit -m
 	ls = ls-tree -r --name-only
 	unstage = reset head
