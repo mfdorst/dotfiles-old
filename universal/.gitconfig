@@ -7,6 +7,7 @@
 	logg = log --oneline --graph
 	c = commit -m
 	ls = ls-tree -r --name-only
+	unstage = reset head
 [core]
 	pager = less -X -F
 [color]
