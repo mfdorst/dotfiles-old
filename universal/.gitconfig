@@ -1,16 +1,16 @@
 [user]
     email = m@mdorst.net
     user = git
-	name = Michael Dorst
+    name = Michael Dorst
 [alias]
-	s = status -s -u
-	l = log --oneline --graph
-	c = commit -m
-	ls = ls-tree -r --name-only
-	unstage = reset head
+    s = status -s -u
+    l = log --oneline --graph
+    c = commit -m
+    ls = ls-tree -r --name-only
+    unstage = reset head
 [core]
-	pager = less -X -F
+    pager = less -X -F
 [color]
-	ui = always
+    ui = always
 [credential]
-	helper = store
+    helper = store
