@@ -9,6 +9,7 @@
     c = commit -m
     ls = ls-tree -r --name-only
     unstage = reset head
+	fixup = commit --fixup head
 [core]
     pager = less -X -F
 [color]
