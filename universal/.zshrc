@@ -10,9 +10,14 @@ antigen bundle git
 antigen bundle heroku
 antigen bundle vi-mode
 antigen bundle command-not-found
+antigen bundle history-substring-search
 
 # Syntax highlighting bundle
 antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Enable history search on up/down arrows
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
 
 # Load the theme
 if [[ -e "$HOME/.zsh_theme" ]]; then
@@ -65,3 +70,4 @@ fi
 if [[ -e "$HOME/.zshrc.local" ]]; then
     source "$HOME/.zshrc.local"
 fi
+
