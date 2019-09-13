@@ -84,4 +84,6 @@ else
     fi
 fi
 unset __conda_setup
-#
+
+# Rust/Cargo
+export PATH="$HOME/.cargo/bin:$PATH"
