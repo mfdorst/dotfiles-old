@@ -36,6 +36,7 @@ else
     SPACESHIP_CHAR_SYMBOL_ROOT="#"
     SPACESHIP_CHAR_SYMBOL="$"
     SPACESHIP_CHAR_SUFFIX=" "
+    SPACESHIP_CONDA_SHOW=false
 fi
 
 antigen apply
