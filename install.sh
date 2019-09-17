@@ -12,7 +12,7 @@ symlink()
         rm "$HOME/$2"
     fi
     ln -s "$HOME/.dotfiles/$1/$2" ~
-    echo "Symlinked $2 -> .dotfiles/$1/$" && echo
+    echo "Symlinked $2 -> .dotfiles/$1/$2" && echo
 }
 
 symlink_prompt()
@@ -106,36 +106,32 @@ install_brew_prompt()
     fi
 }
 
-install_coreutils()
+brew_bundle()
 {
-    brew install coreutils
-    echo "Coreutils installed."
+    echo "Running: brew bundle --global"
+    brew bundle --global
 }
 
-install_coreutils_prompt()
+brew_bundle_prompt()
 {
-    # If brew is installed
-    if which brew &> /dev/null; then
-        # If coreutils is not installed
-        if [ $(which gls &> /dev/null) ]; then
-            if [ "$DEFAULTS" = "yes" ]; then
-                install_coreutils
-            else
-                echo "Would you like to install coreutils? [Y | n]"
-                read should_install_coreutils
-                if echo $should_install_coreutils | grep -Eqiw 'n|no'; then
-                    echo "Coreutils was not installed."
-                else
-                    install_coreutils
-                fi
-            fi
+    # If brew is not installed
+    if [ ! $(which brew &> /dev/null) ]; then
+        if [ "$DEFAULTS" = "yes" ]; then
+            brew_bundle
         else
-            echo "Coreutils is already installed."
+            printf %s "Would you like to install the packages listed in .Brewfile? [Y | n] "
+            read should_brew_bundle
+            if echo $should_brew_bundle | grep -Eqiw 'n|no'; then
+                echo "Packages not installed. Run 'brew bundle --global' to install them."
+            else
+                brew_bundle
+            fi
         fi
     else
-        echo "Homebrew is not installed."
+        echo "Homebrew is not installed. Skipping 'brew bundle --global'."
     fi
 }
+
 #### End MacOS only ####
 
 if [ $(uname) = "Linux" ]; then
@@ -144,8 +140,9 @@ if [ $(uname) = "Linux" ]; then
 elif [ $(uname) = "Darwin" ]; then
     echo "MacOS detected. MacOS specific options:"
     symlink_prompt platform_specific .zshrc.macos
+    symlink_prompt platform_specific .Brewfile
     install_brew_prompt
-    install_coreutils_prompt
+    brew_bundle_prompt
 fi
 
 if [ $SHELL != '/bin/zsh' ]; then
@@ -163,4 +160,5 @@ if [ $SHELL != '/bin/zsh' ]; then
     fi
 fi
 
+echo
 echo "Run 'exec zsh' to begin using your new shell."
