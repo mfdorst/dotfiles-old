@@ -6,6 +6,22 @@ else
     DEFAULTS=no
 fi
 
+defaults() {
+    test "$DEFAULTS" = "yes"
+}
+
+user_says_yes() {
+    local response
+    read response
+    echo $response | grep -Eqiw 'y|yes'
+}
+
+user_says_no() {
+    local response
+    read response
+    echo $response | grep -Eqiw 'n|no'
+}
+
 symlink()
 {
     if [ -e "$HOME/$2" ] || [ -h "$HOME/$2" ]; then
@@ -17,7 +33,7 @@ symlink()
 
 symlink_prompt()
 {
-    if [ "$DEFAULTS" = "yes" ]; then
+    if defaults; then
         symlink $1 $2
     else
         if [ -e "$HOME/$2" ] || [ -h "$HOME/$2" ]; then
@@ -26,9 +42,7 @@ symlink_prompt()
             printf %s "Would you like to symlink $2? [Y | n] "
         fi
 
-        local link
-        read link
-        if echo $link | grep -Eqiw 'n|no'; then
+        if user_says_no; then
             echo "$2 was not symlinked." && echo
         else
             symlink $1 $2
@@ -44,12 +58,12 @@ install_antigen()
 }
 
 if [ ! -e "$HOME/.antigen" ]; then
-    if [ "$DEFAULTS" = "yes" ]; then
+    if defaults; then
         install_antigen
     else
         echo "Would you like to install antigen? [Y | n]"
-        read should_install_antigen
-        if echo $should_install_antigen | grep -Eqiw 'n|no'; then
+
+        if user_says_no; then
             echo "Antigen was not installed."
         else
             install_antigen
@@ -60,16 +74,18 @@ else
 fi
 
 if [ ! -e "$HOME/.zsh_theme" ]; then
-    if [ "$DEFAULTS" = "no" ]; then
-        printf %s "The default Oh My Zsh theme is spaceship-prompt. Would you like to change it? [y | N] "
-        read chose_theme
-        if echo $chose_theme | grep -Eqiw 'y|yes'; then
+    if defaults; then
+        echo "The default theme is spaceship-prompt. Edit .zsh_theme to change it" && echo
+    else
+        printf %s "The default theme is spaceship-prompt. Would you like to change it? [y | N] "
+        
+        if user_says_yes; then
             echo "What theme would you like?"
             read theme
             echo "antigen theme $theme" > ~/.zsh_theme
             echo "Your theme was changed to $theme."
         else
-            echo "Your theme was set to anthropomorphic/spaceship-prompt. Edit .zsh_theme to change it" && echo
+            echo ""
         fi
     fi
 fi
@@ -90,12 +106,12 @@ install_brew_prompt()
 {
     # If brew is not installed
     if [ $(which brew &> /dev/null) ]; then
-        if [ "$DEFAULTS" = "yes" ]; then
+        if defaults; then
             install_brew
         else
             printf %s "Would you like to install homebrew? [Y | n] "
-            read should_install_brew
-            if echo $should_install_brew | grep -Eqiw 'n|no'; then
+            
+            if user_says_no; then
                 echo "Homebrew was not installed." && echo
             else
                 install_brew
@@ -116,12 +132,12 @@ brew_bundle_prompt()
 {
     # If brew is not installed
     if [ ! $(which brew &> /dev/null) ]; then
-        if [ "$DEFAULTS" = "yes" ]; then
+        if defaults; then
             brew_bundle
         else
             printf %s "Would you like to install the packages listed in .Brewfile? [Y | n] "
-            read should_brew_bundle
-            if echo $should_brew_bundle | grep -Eqiw 'n|no'; then
+            
+            if user_says_no; then
                 echo "Packages not installed. Run 'brew bundle --global' to install them."
             else
                 brew_bundle
@@ -146,12 +162,12 @@ elif [ $(uname) = "Darwin" ]; then
 fi
 
 if [ $SHELL != '/bin/zsh' ]; then
-    if [ "$DEFAULTS" = "yes" ]; then
+    if defaults; then
         chsh -s /bin/zsh
     else
         printf %s "Your shell is currently set to $SHELL. Would you like to change it to /bin/zsh? [y | N] "
-        read change_shell
-        if echo $change_shell | grep -Eqiw 'y|yes'; then
+        
+        if user_says_yes; then
             chsh -s /bin/zsh
             echo "Your shell was changed to /bin/zsh."
         else
