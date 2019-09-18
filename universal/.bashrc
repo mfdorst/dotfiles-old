@@ -1,3 +1,5 @@
+# --no-backup--
+
 function exitstatus {
 
     local EXITSTATUS="$?"

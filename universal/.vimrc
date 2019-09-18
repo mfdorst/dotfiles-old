@@ -1,3 +1,5 @@
+" --no-backup--
+
 filetype plugin indent on
 
 set tabstop=4

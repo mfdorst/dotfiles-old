@@ -6,29 +6,74 @@ else
     DEFAULTS=no
 fi
 
-defaults() {
+defaults()
+{
     test "$DEFAULTS" = "yes"
 }
 
-user_says_yes() {
+user_says_yes()
+{
     local response
     read response
     echo $response | grep -Eqiw 'y|yes'
 }
 
-user_says_no() {
+user_says_no()
+{
     local response
     read response
     echo $response | grep -Eqiw 'n|no'
 }
 
+file_exists()
+{
+    test -e "$1" || test -h "$1"
+}
+
+contains() {
+    string="$1"
+    substring="$2"
+    if test "${string#*$substring}" != "$string"
+    then
+        echo "0"
+        return 0    # $substring is in $string
+    else
+        echo "1"
+        return 1    # $substring is not in $string
+    fi
+}
+
+should_backup_file()
+{
+    ! cat "$1" | grep -q -- --no-backup--
+}
+
+backup()
+{
+    if file_exists "$HOME/$1.backup"; then
+        # Backup already exists. Exit failure
+        return $(false)
+    else
+        mv "$HOME/$1" "$HOME/$1.backup"
+        echo "Backing up ~/$1 -> ~/$1.backup"
+    fi
+}
+
 symlink()
 {
-    if [ -e "$HOME/$2" ] || [ -h "$HOME/$2" ]; then
-        rm "$HOME/$2"
+    if file_exists "$HOME/$2"; then
+        if should_backup_file "$HOME/$2"; then
+            if ! backup "$2"; then
+                echo "Couldn't back up file - ~/$2.backup already exists. Skipping..." && echo
+                return $(false)
+            fi
+            echo "Symlinking $2 -> .dotfiles/$1/$2" && echo
+        else
+            echo "Overwriting ~/$2 -> .dotfiles/$1/$2" && echo
+            rm "$HOME/$2"
+        fi
+        ln -s "$HOME/.dotfiles/$1/$2" ~
     fi
-    ln -s "$HOME/.dotfiles/$1/$2" ~
-    echo "Symlinked $2 -> .dotfiles/$1/$2" && echo
 }
 
 symlink_prompt()
@@ -36,7 +81,7 @@ symlink_prompt()
     if defaults; then
         symlink $1 $2
     else
-        if [ -e "$HOME/$2" ] || [ -h "$HOME/$2" ]; then
+        if file_exists "$HOME/$2"; then
             printf %s "$2 exists, would you like to overwrite it? [Y | n] "
         else
             printf %s "Would you like to symlink $2? [Y | n] "
@@ -151,10 +196,10 @@ brew_bundle_prompt()
 #### End MacOS only ####
 
 if [ $(uname) = "Linux" ]; then
-    echo "Linux detected. Linux specific options:"
+    echo "Linux detected. Linux specific options:" && echo
     symlink_prompt platform_specific .zshrc.linux
 elif [ $(uname) = "Darwin" ]; then
-    echo "MacOS detected. MacOS specific options:"
+    echo "MacOS detected. MacOS specific options:" && echo
     symlink_prompt platform_specific .zshrc.macos
     symlink_prompt platform_specific .Brewfile
     install_brew_prompt

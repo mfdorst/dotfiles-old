@@ -1,6 +1,12 @@
-####################################
-## TO CUSTOMIZE, USE .zshrc.local ##
-####################################
+# --no-backup--
+
+#=----------------------------------------------------------------------------=#
+# Author: Michael Dorst                                                        #
+#=----------------------------------------------------------------------------=#
+
+#=----------------------------------------------------------------------------=#
+## TO CUSTOMIZE, USE .zshrc.local                                              #
+#=----------------------------------------------------------------------------=#
 
 source "$HOME/.antigen/antigen.zsh"
 antigen use oh-my-zsh
@@ -24,7 +30,7 @@ if [[ -e "$HOME/.zsh_theme" ]]; then
     source "$HOME/.zsh_theme"
 else
     # Load custom forked version of denysdovhan's spaceship-prompt
-    antigen theme https://github.com/anthropomorphic/spaceship-prompt spaceship
+    antigen theme https://github.com/mfdorst/spaceship-prompt spaceship
 
     # Apply custom theme settings
     SPACESHIP_VI_MODE_INSERT=
@@ -54,8 +60,8 @@ mcd()
     test -d "$1" || mkdir "$1" && cd "$1"
 }
 
+# Aliases
 alias ducks='du -cksh * | sort -hr'
-
 alias h='head -n'
 
 # Load platform specific rc files
@@ -63,8 +69,8 @@ if [[ -e "$HOME/.zshrc.macos" ]]; then
     source "$HOME/.zshrc.macos"
 fi
 
-if [[ -e "$HOME/.zshrc.ubuntu" ]]; then
-    source "$HOME/.zshrc.macos"
+if [[ -e "$HOME/.zshrc.linux" ]]; then
+    source "$HOME/.zshrc.linux"
 fi
 
 # Load local rc
@@ -92,5 +98,3 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # Pyenv
 # `pyenv init -` will produce a script, which is why we use `eval` here.
 eval "$(pyenv init -)"
-
-

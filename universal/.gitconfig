@@ -1,3 +1,5 @@
+# --no-backup--
+
 [user]
     email = m@mdorst.net
     user = git
