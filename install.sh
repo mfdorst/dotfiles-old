@@ -72,8 +72,10 @@ symlink()
             echo "Overwriting ~/$2 -> .dotfiles/$1/$2" && echo
             rm "$HOME/$2"
         fi
-        ln -s "$HOME/.dotfiles/$1/$2" ~
+    else
+        echo "Symlinking $2 -> .dotfiles/$1/$2" && echo
     fi
+    ln -s "$HOME/.dotfiles/$1/$2" ~
 }
 
 symlink_prompt()
