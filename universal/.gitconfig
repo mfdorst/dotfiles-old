@@ -8,7 +8,7 @@
     s = status -s -u
     l = log --oneline --graph --branches --remotes --tags head
     ll = log --graph --branches --remotes --tags head
-    c = commit -m
+	c = commit
     ls = ls-tree -r --name-only
     unstage = reset head
 	fixup = commit --fixup head
