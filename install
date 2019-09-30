@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+
+##
+# For compatibility with 1.8
+def require_rel(this_file, required_file)
+  require File.join(File.dirname(this_file), required_file)
+end
+
+require_rel __FILE__, 'install_scripts/brew_setup'
+require_rel __FILE__, 'install_scripts/platform'
+require_rel __FILE__, 'install_scripts/symlink'
+require_rel __FILE__, 'install_scripts/user_ask'
+
+$HOME = ENV['HOME']
+
+puts "Ruby version: #{RUBY_VERSION}"
+
+if ARGV[0] == "-y"
+  puts "Accepting all defaults"
+  $accept_defaults = true
+else
+  $accept_defaults = false
+end
+
+# Install antigen
+begin
+  antigen_dir = "#{$HOME}/.antigen"
+
+  unless File.exist? antigen_dir
+    if user_ask :default_confirm, 'Would you like to install antigen?'
+      puts 'Installing antigen...'
+      Dir.mkdir antigen_dir
+      `curl -L git.io/antigen > "#{antigen_dir}/antigen.zsh"`
+      puts 'Antigen was installed.'
+      puts 'The default theme is spaceship-prompt. Edit .zsh_theme to change it.'
+    else
+      puts 'Antigen was not installed.'
+    end
+  else
+    puts 'Antigen is already installed.'
+    puts 'The default theme is spaceship-prompt. Edit .zsh_theme to change it.'
+  end
+end
+
+Dir.entries("#{$HOME}/.dotfiles/universal").reject{ |f| File.directory? f }.each do |f|
+  symlink 'universal', f
+end
+
+case OS.which?
+when :linux
+  puts
+  puts '--- Linux detected ---'
+  symlink 'platform_specific', '.zshrc.linux'
+when :macos
+  puts
+  puts '--- macOS detected ---'
+  symlink 'platform_specific', '.zshrc.macos'
+  symlink 'platform_specific', '.Brewfile'
+  install_brew
+end
+
+if (ENV['SHELL'] =~ /zsh/) == nil
+  puts
+  puts 'Run `chsh -s $(which zsh) && exec zsh` to switch to Zsh.'
+end

@@ -95,6 +95,9 @@ unset __conda_setup
 # Rust/Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# Pyenv
-# `pyenv init -` will produce a script, which is why we use `eval` here.
+# pyenv
 eval "$(pyenv init -)"
+
+# rbenv
+eval "$(rbenv init -)"
+
