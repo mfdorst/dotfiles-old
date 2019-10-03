@@ -96,8 +96,12 @@ unset __conda_setup
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # pyenv
-eval "$(pyenv init -)"
+if command -v pyenv &> /dev/null; then
+    eval "$(pyenv init -)"
+fi
 
 # rbenv
-eval "$(rbenv init -)"
+if command -v rbenv &> /dev/null; then
+    eval "$(rbenv init -)"
+fi
 
