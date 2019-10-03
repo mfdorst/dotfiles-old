@@ -1,19 +1,19 @@
 #!/usr/bin/env ruby
 
+puts "Ruby version: #{RUBY_VERSION}"
+
 ##
 # For compatibility with 1.8
 def require_rel(this_file, required_file)
   require File.join(File.dirname(this_file), required_file)
 end
 
+HOME = ENV['HOME']
+
 require_rel __FILE__, 'install_scripts/brew_setup'
 require_rel __FILE__, 'install_scripts/platform'
 require_rel __FILE__, 'install_scripts/symlink'
 require_rel __FILE__, 'install_scripts/user_ask'
-
-$HOME = ENV['HOME']
-
-puts "Ruby version: #{RUBY_VERSION}"
 
 if ARGV[0] == "-y"
   puts "Accepting all defaults"
@@ -24,7 +24,7 @@ end
 
 # Install antigen
 begin
-  antigen_dir = "#{$HOME}/.antigen"
+  antigen_dir = "#{HOME}/.antigen"
 
   unless File.exist? antigen_dir
     if user_ask :default_confirm, 'Would you like to install antigen?'
@@ -42,7 +42,7 @@ begin
   end
 end
 
-Dir.entries("#{$HOME}/.dotfiles/universal").reject{ |f| File.directory? f }.each do |f|
+Dir.entries("#{HOME}/.dotfiles/universal").reject{ |f| File.directory? f }.each do |f|
   symlink 'universal', f
 end
 

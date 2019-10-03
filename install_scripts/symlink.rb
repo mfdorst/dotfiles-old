@@ -7,12 +7,10 @@ end
 require_rel __FILE__, 'backup'
 require_rel __FILE__, 'user_ask'
 
-$HOME = ENV['HOME']
-
 def symlink(dir, file)
-  src_path = File.join $HOME, '.dotfiles', dir, file
+  src_path = File.join HOME, '.dotfiles', dir, file
   src_path_pretty = File.join '~/.dotfiles', dir, file
-  dest_path = File.join $HOME, file
+  dest_path = File.join HOME, file
 
   if File.symlink? dest_path
     sym_loc = File.readlink dest_path
