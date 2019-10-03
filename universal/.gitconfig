@@ -4,12 +4,12 @@
     name = Michael Dorst
 [alias]
     s = status -s -u
-    l = log --oneline --graph --branches --remotes --tags head
-    ll = log --graph --branches --remotes --tags head
+    l = log --oneline --graph --branches --remotes --tags HEAD
+    ll = log --graph --branches --remotes --tags HEAD
 	c = commit
     ls = ls-tree -r --name-only
-    unstage = reset head
-	fixup = commit --fixup head
+    unstage = reset HEAD
+	fixup = commit --fixup HEAD
 [core]
     pager = less -X -F
 [color]
