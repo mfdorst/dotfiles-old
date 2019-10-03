@@ -2,18 +2,22 @@
 
 puts "Ruby version: #{RUBY_VERSION}"
 
-##
-# For compatibility with 1.8
-def require_rel(this_file, required_file)
-  require File.join(File.dirname(this_file), required_file)
-end
-
 HOME = ENV['HOME']
 
-require_rel __FILE__, 'install_scripts/brew_setup'
-require_rel __FILE__, 'install_scripts/platform'
-require_rel __FILE__, 'install_scripts/symlink'
-require_rel __FILE__, 'install_scripts/user_ask'
+if RUBY_VERSION == '1.8.7'
+  def require_rel(this_file, required_file)
+    require File.join(File.dirname(this_file), required_file)
+  end
+  require_rel __FILE__, 'install_scripts/brew_setup'
+  require_rel __FILE__, 'install_scripts/platform'
+  require_rel __FILE__, 'install_scripts/symlink'
+  require_rel __FILE__, 'install_scripts/user_ask'
+else
+  require_relative 'install_scripts/brew_setup'
+  require_relative 'install_scripts/platform'
+  require_relative 'install_scripts/symlink'
+  require_relative 'install_scripts/user_ask'
+end
 
 if ARGV[0] == "-y"
   puts "Accepting all defaults"

@@ -1,11 +1,13 @@
-##
-# For compatibility with 1.8
-def require_rel(this_file, required_file)
-  require File.join(File.dirname(this_file), required_file)
+if RUBY_VERSION == '1.8.7'
+  def require_rel(this_file, required_file)
+    require File.join(File.dirname(this_file), required_file)
+  end
+  require_rel __FILE__, 'backup'
+  require_rel __FILE__, 'user_ask'
+else
+  require_relative 'backup'
+  require_relative 'user_ask'
 end
-
-require_rel __FILE__, 'backup'
-require_rel __FILE__, 'user_ask'
 
 def symlink(dir, file)
   src_path = File.join HOME, '.dotfiles', dir, file
