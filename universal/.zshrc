@@ -6,7 +6,7 @@
 ## TO CUSTOMIZE, USE .zshrc.local                                              #
 #=----------------------------------------------------------------------------=#
 
-source "HOME/.antigen/antigen.zsh"
+source "$HOME/.antigen/antigen.zsh"
 antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh)
@@ -24,8 +24,8 @@ bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
 # Load the theme
-if [[ -e "HOME/.zsh_theme" ]]; then
-    source "HOME/.zsh_theme"
+if [[ -e "$HOME/.zsh_theme" ]]; then
+    source "$HOME/.zsh_theme"
 else
     # Load custom forked version of denysdovhan's spaceship-prompt
     antigen theme https://github.com/mfdorst/spaceship-prompt spaceship
@@ -66,17 +66,17 @@ alias ducks='du -cksh * | sort -hr'
 alias h='head -n'
 
 # Load platform specific rc files
-if [[ -e "HOME/.zshrc.macos" ]]; then
-    source "HOME/.zshrc.macos"
+if [[ -e "$HOME/.zshrc.macos" ]]; then
+    source "$HOME/.zshrc.macos"
 fi
 
-if [[ -e "HOME/.zshrc.linux" ]]; then
-    source "HOME/.zshrc.linux"
+if [[ -e "$HOME/.zshrc.linux" ]]; then
+    source "$HOME/.zshrc.linux"
 fi
 
 # Load local rc
-if [[ -e "HOME/.zshrc.local" ]]; then
-    source "HOME/.zshrc.local"
+if [[ -e "$HOME/.zshrc.local" ]]; then
+    source "$HOME/.zshrc.local"
 fi
 
 # Anaconda
@@ -94,7 +94,7 @@ fi
 unset __conda_setup
 
 # Rust/Cargo
-export PATH="HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # pyenv
 if command -v pyenv &> /dev/null; then
