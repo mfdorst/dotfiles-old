@@ -52,7 +52,10 @@ unsetopt BEEP
 
 # Use a UTF-8 locale - fixes an issue with the oh-my-zsh 'bira' theme, where the
 # prompt would break on non-zero return values
-LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+export EDITOR=vim
+export VISUAL=vim
 
 # Make a directory and cd into it
 mcd()
