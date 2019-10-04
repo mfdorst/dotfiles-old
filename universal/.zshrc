@@ -6,7 +6,7 @@
 export ZSH="/Users/michael/.oh-my-zsh"
 
 # Oh-My-Zsh theme
-ZSH_THEME="robbyrussell"
+ZSH_THEME='spaceship'
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,6 +51,18 @@ source $ZSH/oh-my-zsh.sh
 #===--------------------------------------------------------------------------------------------===#
 #=== User configuration
 #===--------------------------------------------------------------------------------------------===#
+
+ # Apply custom theme settings
+SPACESHIP_VI_MODE_INSERT=
+SPACESHIP_VI_MODE_SUFFIX=
+SPACESHIP_VI_MODE_NORMAL="[V] "
+SPACESHIP_USER_COLOR=green
+SPACESHIP_USER_SHOW=always
+SPACESHIP_DIR_TRUNC_PREFIX=".../"
+SPACESHIP_CHAR_SYMBOL_ROOT="#"
+SPACESHIP_CHAR_SYMBOL="$"
+SPACESHIP_CHAR_SUFFIX=" "
+SPACESHIP_CONDA_SHOW=false
 
 # Get rid of all the aliases OMZ adds
 unalias -m '*'
