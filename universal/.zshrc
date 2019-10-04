@@ -1,20 +1,12 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+#===--------------------------------------------------------------------------------------------===#
+#=== Oh-My-Zsh configuration (user settings are further down - do not set them here)
+#===--------------------------------------------------------------------------------------------===#
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/michael/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# Oh-My-Zsh theme
 ZSH_THEME="robbyrussell"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -35,65 +27,75 @@ ZSH_THEME="robbyrussell"
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS=true
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
 # Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git heroku rust cargo ruby)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+#===--------------------------------------------------------------------------------------------===#
+#=== User configuration
+#===--------------------------------------------------------------------------------------------===#
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Get rid of all the aliases OMZ adds
+unalias -m '*'
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# Add my own aliases
+alias h='head -n'
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# Make a directory and cd into it
+mcd()
+{
+    test -d "$1" || mkdir "$1" && cd "$1"
+}
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+export LANG=en_US.UTF-8
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Disable bell
+unsetopt BEEP
+
+# Set default editor to vim
+export VISUAL='vim'
+export EDITOR='vim'
+
+# Load platform specific rc files
+if [[ -e "$HOME/.zshrc.macos" ]]; then
+    source "$HOME/.zshrc.macos"
+fi
+
+if [[ -e "$HOME/.zshrc.linux" ]]; then
+    source "$HOME/.zshrc.linux"
+fi
+
+# Load local rc
+if [[ -e "$HOME/.zshrc.local" ]]; then
+    source "$HOME/.zshrc.local"
+fi
+
+# Rust/Cargo
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# pyenv
+if command -v pyenv &> /dev/null; then
+    eval "$(pyenv init -)"
+fi
+
+# rbenv
+if command -v rbenv &> /dev/null; then
+    eval "$(rbenv init -)"
+fi
