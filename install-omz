@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require 'open3'
+
+HOME = ENV['HOME']
+
+if File.exist? "#{HOME}/.oh-my-zsh"
+  STDERR.puts 'Oh-My-Zsh is already installed. Aborting...'
+  exit(1)
+end
+
+omz_url = 'https://raw.github.com/mfdorst/oh-my-zsh/install-noreplace-zshrc/tools/install.sh'
+omz_installer, status = Open3.capture2 'curl', '-fsSL', omz_url
+
+puts system({
+    'REPO' => 'mfdorst/oh-my-zsh',
+    'BRANCH' => 'install-noreplace-zshrc',
+    'REPLACE_RC' => 'no'
+  }, omz_installer)

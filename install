@@ -26,26 +26,6 @@ else
   $accept_defaults = false
 end
 
-# Install antigen
-begin
-  antigen_dir = "#{HOME}/.antigen"
-
-  unless File.exist? antigen_dir
-    if user_ask :default_confirm, 'Would you like to install antigen?'
-      puts 'Installing antigen...'
-      Dir.mkdir antigen_dir
-      `curl -L git.io/antigen > "#{antigen_dir}/antigen.zsh"`
-      puts 'Antigen was installed.'
-      puts 'The default theme is spaceship-prompt. Edit .zsh_theme to change it.'
-    else
-      puts 'Antigen was not installed.'
-    end
-  else
-    puts 'Antigen is already installed.'
-    puts 'The default theme is spaceship-prompt. Edit .zsh_theme to change it.'
-  end
-end
-
 Dir.entries("#{HOME}/.dotfiles/universal").reject{ |f| File.directory? f }.each do |f|
   symlink 'universal', f
 end
@@ -62,6 +42,9 @@ when :macos
   symlink 'platform_specific', '.Brewfile'
   install_brew
 end
+
+puts
+puts system "#{HOME}/.dotfiles/install-omz"
 
 if (ENV['SHELL'] =~ /zsh/) == nil
   puts
