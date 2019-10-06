@@ -20,10 +20,10 @@ def install_brew()
     end
     # Download and install homebrew
     `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-    puts 'Homebrew was installed.'
+    puts 'Homebrew was installed.'.green
   else
-    puts 'Homebrew is already installed.'
+    puts 'Homebrew is already installed.'.green
   end
   puts
-  puts 'Run `brew bundle --global` to install default packages.'
+  puts 'Run `brew bundle --global` to install default packages.'.yellow
 end

@@ -2,20 +2,29 @@
 
 require 'open3'
 
+if RUBY_VERSION == '1.8.7'
+  def require_rel(this_file, required_file)
+    require File.join(File.dirname(this_file), required_file)
+  end
+  require_rel __FILE__, 'install_scripts/colorize'
+else
+  require_relative 'install_scripts/colorize'
+end
+
 HOME = ENV['HOME']
 
 if File.exist? "#{HOME}/.oh-my-zsh"
-  STDERR.puts 'Oh-My-Zsh is already installed.'
+  STDERR.puts 'Oh-My-Zsh is already installed.'.green
   exit(1)
 end
 
-puts 'Downloading Oh-My-Zsh from GitHub (mfdorst/oh-my-zsh)...'
+puts 'Downloading Oh-My-Zsh from GitHub (mfdorst/oh-my-zsh)...'.blue
 omz_url = 'https://raw.github.com/mfdorst/oh-my-zsh/install-noreplace-zshrc/tools/install.sh'
 omz_installer, status = Open3.capture2 'curl', '-fsSL', omz_url
-puts 'Done.'
+puts 'Done.'.blue
 
-puts 'Running Oh-My-Zsh installer...'
-puts 'Using custom repo (mfodrst.oh-my-zsh)'
+puts 'Running Oh-My-Zsh installer...'.blue
+puts 'Using custom repo (mfodrst/oh-my-zsh)'.yellow
 system({
     'REPO' => 'mfdorst/oh-my-zsh',
     'BRANCH' => 'install-noreplace-zshrc',
@@ -23,4 +32,4 @@ system({
     'CHSH' => 'no',
     'RUNZSH' => 'no'
   }, omz_installer)
-puts 'Done.'
+puts 'Done.'.blue

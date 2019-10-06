@@ -9,18 +9,20 @@ if RUBY_VERSION == '1.8.7'
     require File.join(File.dirname(this_file), required_file)
   end
   require_rel __FILE__, 'install_scripts/brew_setup'
+  require_rel __FILE__, 'install_scripts/colorize'
   require_rel __FILE__, 'install_scripts/platform'
   require_rel __FILE__, 'install_scripts/symlink'
   require_rel __FILE__, 'install_scripts/user_ask'
 else
   require_relative 'install_scripts/brew_setup'
+  require_relative 'install_scripts/colorize'
   require_relative 'install_scripts/platform'
   require_relative 'install_scripts/symlink'
   require_relative 'install_scripts/user_ask'
 end
 
 if ARGV[0] == "-y"
-  puts "Accepting all defaults"
+  puts "Accepting all defaults.".yellow
   $accept_defaults = true
 else
   $accept_defaults = false
@@ -33,22 +35,32 @@ end
 case OS.which?
 when :linux
   puts
-  puts '--- Linux detected ---'
+  puts '--- Linux detected ---'.blue
   symlink 'platform_specific', '.zshrc.linux'
 when :macos
   puts
-  puts '--- macOS detected ---'
+  puts '--- macOS detected ---'.blue
   symlink 'platform_specific', '.zshrc.macos'
   symlink 'platform_specific', '.Brewfile'
+  puts
   install_brew
 end
 
 puts
-system "#{HOME}/.dotfiles/install-omz"
+if File.exist? "#{HOME}/.oh-my-zsh"
+  STDERR.puts 'Oh-My-Zsh is already installed.'.green
+elsif user_ask :default_confirm, 'Would you like to install Oh-My-Zsh?'
+  system "#{HOME}/.dotfiles/install-omz"
+end
+
 puts
-system "#{HOME}/.dotfiles/install-spaceship-prompt"
+if File.exist? "#{HOME}/.oh-my-zsh/custom/themes/spaceship-prompt"
+  STDERR.puts 'Spaceship prompt is already installed.'.green
+elsif user_ask :default_confirm, 'Would you like to install spaceship-prompt?'
+  system "#{HOME}/.dotfiles/install-spaceship-prompt"
+end
 
 if (ENV['SHELL'] =~ /zsh/) == nil
   puts
-  puts 'Run `chsh -s $(which zsh) && exec zsh` to switch to Zsh.'
+  puts 'Run `chsh -s $(which zsh) && exec zsh` to switch to Zsh.'.yellow
 end

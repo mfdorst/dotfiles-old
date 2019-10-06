@@ -17,7 +17,7 @@ def symlink(dir, file)
   if File.symlink? dest_path
     sym_loc = File.readlink dest_path
     if sym_loc == src_path
-      puts "#{file} is already symlinked. Skipping..."
+      puts "#{file} is already symlinked. Skipping...".green
       return
     end
   end
@@ -30,9 +30,9 @@ def symlink(dir, file)
   if File.exist? dest_path
     case backup file
     when :success
-      puts "Backing up ~/#{file} -> ~/#{file}.backup"
+      puts "Backing up ~/#{file} -> ~/#{file}.backup".green
     when :failure
-      puts "Couldn't back up file - ~/#{file}.backup already exists. Skipping..."
+      puts "Couldn't back up file - ~/#{file}.backup already exists. Skipping...".red
       return
     end
   end

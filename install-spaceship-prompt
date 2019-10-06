@@ -1,18 +1,27 @@
 #!/usr/bin/env ruby
 
+if RUBY_VERSION == '1.8.7'
+  def require_rel(this_file, required_file)
+    require File.join(File.dirname(this_file), required_file)
+  end
+  require_rel __FILE__, 'install_scripts/colorize'
+else
+  require_relative 'install_scripts/colorize'
+end
+
 themes_dir = "#{ENV['HOME']}/.oh-my-zsh/custom/themes"
 spaceship_dir = "#{themes_dir}/spaceship-prompt"
 
 unless File.exist? "#{themes_dir}/spaceship-prompt"
-  puts 'Cloning mfdorst/spaceship-prompt from GitHub...'
+  puts 'Cloning spaceship-prompt from GitHub (mfdorst/spaceship-prompt)...'.blue
   system "git clone https://github.com/mfdorst/spaceship-prompt '#{spaceship_dir}'"
-  puts 'Done.'
+  puts 'Done.'.blue
 else
-  STDERR.puts "Spaceship prompt is already installed."
+  STDERR.puts 'Spaceship prompt is already installed.'.green
 end
 
 unless File.exist? "#{themes_dir}/spaceship.zsh-theme"
-  puts 'Symlinking spaceship-prompt theme file...'
+  puts 'Symlinking spaceship-prompt theme file...'.blue
   system "ln -s '#{spaceship_dir}/spaceship.zsh-theme' '#{themes_dir}/spaceship.zsh-theme'"
-  puts 'Done.'
+  puts 'Done.'.blue
 end
