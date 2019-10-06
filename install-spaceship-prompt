@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+themes_dir = "#{ENV['HOME']}/.oh-my-zsh/custom/themes"
+spaceship_dir = "#{themes_dir}/spaceship-prompt"
+
+unless File.exist? "#{themes_dir}/spaceship-prompt"
+  puts 'Cloning mfdorst/spaceship-prompt from GitHub...'
+  system "git clone https://github.com/mfdorst/spaceship-prompt '#{spaceship_dir}'"
+  puts 'Done.'
+else
+  STDERR.puts "Spaceship prompt is already installed."
+end
+
+unless File.exist? "#{themes_dir}/spaceship.zsh-theme"
+  puts 'Symlinking spaceship-prompt theme file...'
+  system "ln -s '#{spaceship_dir}/spaceship.zsh-theme' '#{themes_dir}/spaceship.zsh-theme'"
+  puts 'Done.'
+end

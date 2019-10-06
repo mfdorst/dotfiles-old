@@ -5,15 +5,22 @@ require 'open3'
 HOME = ENV['HOME']
 
 if File.exist? "#{HOME}/.oh-my-zsh"
-  STDERR.puts 'Oh-My-Zsh is already installed. Aborting...'
+  STDERR.puts 'Oh-My-Zsh is already installed.'
   exit(1)
 end
 
+puts 'Downloading Oh-My-Zsh from GitHub (mfdorst/oh-my-zsh)...'
 omz_url = 'https://raw.github.com/mfdorst/oh-my-zsh/install-noreplace-zshrc/tools/install.sh'
 omz_installer, status = Open3.capture2 'curl', '-fsSL', omz_url
+puts 'Done.'
 
-puts system({
+puts 'Running Oh-My-Zsh installer...'
+puts 'Using custom repo (mfodrst.oh-my-zsh)'
+system({
     'REPO' => 'mfdorst/oh-my-zsh',
     'BRANCH' => 'install-noreplace-zshrc',
-    'REPLACE_RC' => 'no'
+    'REPLACE_RC' => 'no',
+    'CHSH' => 'no',
+    'RUNZSH' => 'no'
   }, omz_installer)
+puts 'Done.'

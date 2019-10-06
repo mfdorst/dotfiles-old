@@ -44,7 +44,9 @@ when :macos
 end
 
 puts
-puts system "#{HOME}/.dotfiles/install-omz"
+system "#{HOME}/.dotfiles/install-omz"
+puts
+system "#{HOME}/.dotfiles/install-spaceship-prompt"
 
 if (ENV['SHELL'] =~ /zsh/) == nil
   puts
