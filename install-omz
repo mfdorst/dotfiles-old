@@ -2,14 +2,7 @@
 
 require 'open3'
 
-if RUBY_VERSION == '1.8.7'
-  def require_rel(this_file, required_file)
-    require File.join(File.dirname(this_file), required_file)
-  end
-  require_rel __FILE__, 'install_scripts/colorize'
-else
-  require_relative 'install_scripts/colorize'
-end
+require "#{File.dirname __FILE__}/install_scripts/colorize"
 
 HOME = ENV['HOME']
 

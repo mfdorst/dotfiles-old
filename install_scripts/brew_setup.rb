@@ -1,11 +1,4 @@
-if RUBY_VERSION == '1.8.7'
-  def require_rel(this_file, required_file)
-    require File.join(File.dirname(this_file), required_file)
-  end
-  require_rel __FILE__, 'user_ask'
-else
-  require_relative 'user_ask'
-end
+require "#{File.dirname __FILE__}/user_ask"
 
 def brew_installed?
   `which brew &> /dev/null`

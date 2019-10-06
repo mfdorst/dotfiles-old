@@ -1,25 +1,15 @@
 #!/usr/bin/env ruby
 
-puts "Ruby version: #{RUBY_VERSION}"
+require "#{File.dirname __FILE__}/install_scripts/brew_setup"
+require "#{File.dirname __FILE__}/install_scripts/platform"
+require "#{File.dirname __FILE__}/install_scripts/symlink"
+require "#{File.dirname __FILE__}/install_scripts/user_ask"
+
+puts
+puts "Ruby version: #{RUBY_VERSION}".red
+puts
 
 HOME = ENV['HOME']
-
-if RUBY_VERSION == '1.8.7'
-  def require_rel(this_file, required_file)
-    require File.join(File.dirname(this_file), required_file)
-  end
-  require_rel __FILE__, 'install_scripts/brew_setup'
-  require_rel __FILE__, 'install_scripts/colorize'
-  require_rel __FILE__, 'install_scripts/platform'
-  require_rel __FILE__, 'install_scripts/symlink'
-  require_rel __FILE__, 'install_scripts/user_ask'
-else
-  require_relative 'install_scripts/brew_setup'
-  require_relative 'install_scripts/colorize'
-  require_relative 'install_scripts/platform'
-  require_relative 'install_scripts/symlink'
-  require_relative 'install_scripts/user_ask'
-end
 
 if ARGV[0] == "-y"
   puts "Accepting all defaults.".yellow

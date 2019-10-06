@@ -1,11 +1,4 @@
-if RUBY_VERSION == '1.8.7'
-  def require_rel(this_file, required_file)
-    require File.join(File.dirname(this_file), required_file)
-  end
-  require_rel __FILE__, 'colorize'
-else
-  require_relative 'colorize'
-end
+require "#{File.dirname __FILE__}/colorize"
 
 def user_ask(default, prompt)
   if default != :default_confirm and default != :default_deny
