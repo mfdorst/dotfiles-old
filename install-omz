@@ -22,6 +22,7 @@ puts 'Using custom repo (mfodrst/oh-my-zsh)'.yellow
 # Older versions of ruby don't support passing environment variables to +system+
 # As a hack, we just prepend the script with some variable definitions
 system %Q(
+  ZSH=~/.oh-my-zsh
   REPO=mfdorst/oh-my-zsh
   BRANCH=install-noreplace-zshrc
   REPLACE_RC=no
