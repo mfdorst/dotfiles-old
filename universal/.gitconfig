@@ -11,6 +11,7 @@
     unstage = reset HEAD
 	fixup = commit --fixup HEAD
 	update = fetch --all --prune
+	co = checkout
 [core]
     pager = less -X -F
 [color]
