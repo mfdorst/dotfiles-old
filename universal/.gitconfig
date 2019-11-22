@@ -12,6 +12,7 @@
 	fixup = commit --fixup HEAD
 	update = fetch --all --prune
 	co = checkout
+	b = branch
 [core]
     pager = less -X -F
 [color]
