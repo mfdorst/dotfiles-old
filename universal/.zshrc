@@ -106,6 +106,9 @@ fi
 # Rust/Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# LLVM
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+
 # Anaconda
 __conda_setup="$(CONDA_REPORT_ERRORS=false '/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
 if [ $? -eq 0 ]; then
