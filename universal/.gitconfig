@@ -13,6 +13,12 @@
 	update = fetch --all --prune
 	co = checkout
 	b = branch
+	ds = diff --stat
+	d = diff
+	a = add
+	fap = fetch --all --prune
+	ld = log --oneline master..HEAD
+	lld = log master..HEAD
 [core]
     pager = less -X -F
 [color]
