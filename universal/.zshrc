@@ -66,9 +66,13 @@ SPACESHIP_CONDA_SHOW=false
 
 # Get rid of all the aliases OMZ adds
 unalias -m '*'
-
 # Add my own aliases
 alias h='head -n'
+if command -v hub &> /dev/null; then
+    alias g='hub'
+else
+    alias g='git'
+fi
 
 # Make a directory and cd into it
 mcd()
