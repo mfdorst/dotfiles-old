@@ -18,22 +18,24 @@ else
   $accept_defaults = false
 end
 
-Dir.entries("#{HOME}/.dotfiles/universal").reject{ |f| File.directory? f }.each do |f|
-  symlink 'universal', f
+Dir.entries("#{HOME}/.dotfiles/home_dir").reject{ |f| File.directory? f }.each do |f|
+  symlink 'home_dir', f
 end
 
 case OS.which?
 when :linux
   puts
   puts '--- Linux detected ---'.blue
-  symlink 'platform_specific', '.zshrc.linux'
-  symlink 'special', 'settings.json', '.config/Code/User'
+  symlink 'linux', '.zshrc.linux'
+  symlink 'linux', 'keybindings.json', '.config/Code/User'
+  symlink 'custom_dir', 'settings.json', '.config/Code/User'
 when :macos
   puts
   puts '--- macOS detected ---'.blue
-  symlink 'platform_specific', '.zshrc.macos'
-  symlink 'platform_specific', '.Brewfile'
-  symlink 'special', 'settings.json', 'Library/Application Support/Code/User'
+  symlink 'macos', '.zshrc.macos'
+  symlink 'macos', '.Brewfile'
+  symlink 'macos', 'keybindings.json', 'Library/Application Support/Code/User'
+  symlink 'custom_dir', 'settings.json', 'Library/Application Support/Code/User'
   puts
   install_brew
 end
