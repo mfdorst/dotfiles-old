@@ -1,0 +1,39 @@
+{
+  "terminal.integrated.shell.osx": "/bin/zsh",
+  "editor.minimap.enabled": false,
+  "files.autoSave": "onFocusChange",
+  "editor.rulers": [
+    100
+  ],
+  "editor.tabSize": 2,
+  "[c, c++]": {
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.rulers": [
+      100
+    ],
+    "editor.tabSize": 4
+  },
+  "[rust]": {
+    "editor.rulers": [
+      100
+    ]
+  },
+  "[java]": {
+    "editor.tabSize": 4
+  },
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true,
+  "editor.detectIndentation": false,
+  "workbench.editor.limit.value": 6,
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.perEditorGroup": true,
+  "C_Cpp.autoAddFileAssociations": false,
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "diffEditor.ignoreTrimWhitespace": false
+}

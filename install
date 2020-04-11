@@ -27,11 +27,13 @@ when :linux
   puts
   puts '--- Linux detected ---'.blue
   symlink 'platform_specific', '.zshrc.linux'
+  symlink 'special', 'settings.json', '.config/Code/User'
 when :macos
   puts
   puts '--- macOS detected ---'.blue
   symlink 'platform_specific', '.zshrc.macos'
   symlink 'platform_specific', '.Brewfile'
+  symlink 'special', 'settings.json', 'Library/Application Support/Code/User'
   puts
   install_brew
 end
