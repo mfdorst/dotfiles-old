@@ -1,7 +1,6 @@
 {
   "terminal.integrated.shell.osx": "/bin/zsh",
   "editor.minimap.enabled": false,
-  "files.autoSave": "onFocusChange",
   "editor.rulers": [
     100
   ],
@@ -21,6 +20,10 @@
   "[java]": {
     "editor.tabSize": 4
   },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "files.insertFinalNewline": true,
+  },
   "workbench.startupEditor": "newUntitledFile",
   "editor.fontFamily": "Fira Code",
   "editor.fontLigatures": true,
@@ -35,5 +38,10 @@
   "[cpp]": {
     "editor.defaultFormatter": "xaver.clang-format"
   },
-  "diffEditor.ignoreTrimWhitespace": false
+  "diffEditor.ignoreTrimWhitespace": false,
+  "explorer.confirmDragAndDrop": false,
+  "workbench.colorTheme": "Cyberpunk",
+  "window.zoomLevel": 0,
+  "editor.formatOnSave": true,
+  "files.autoSave": "onFocusChange"
 }
