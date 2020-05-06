@@ -52,6 +52,11 @@ source $ZSH/oh-my-zsh.sh
 #=== User configuration
 #===--------------------------------------------------------------------------------------------===#
 
+# How many lines of history to keep in memory
+HISTSIZE=10000
+# How many lines to keep in the history file
+SAVEHIST=1000000000
+
  # Apply custom theme settings
 # SPACESHIP_VI_MODE_INSERT=
 # SPACESHIP_VI_MODE_SUFFIX=
