@@ -66,13 +66,68 @@ SPACESHIP_CONDA_SHOW=false
 
 # Get rid of all the aliases OMZ adds
 unalias -m '*'
-# Add my own aliases
-alias h='head -n'
+
+#
+# Aliases
+#
+
+#
+# Git
+#
+
+# Use hub instead of git when available
 if command -v hub &> /dev/null; then
-    alias g='hub'
-else
-    alias g='git'
+    alias git='hub'
 fi
+
+alias g='git'
+
+# Status
+alias gs="git status -su"
+
+# Fetch all, prune, and pull
+alias gp="git fetch --all --prune && git pull"
+
+# Checkout
+alias gco="git checkout"
+
+# Stash
+alias gst="git add . && git stash"
+
+# Reset
+alias gr="git reset --hard"
+alias gra="git add . && git reset --hard"
+
+# Branch
+alias gb="git branch"
+alias gba="git branch --all"
+alias gbm="git branch --merged"
+
+# Delete merged branches
+alias gbdm='git branch --color=never --merged | grep -vE "\*|master" | xargs git branch -d'
+
+# Commit
+alias gc="git commit"
+alias gca="git add . && git commit"
+
+# Add
+alias ga="git add"
+alias gaa="git add ."
+
+# Diff
+alias gd="git diff"
+alias gds="git diff --stat"
+
+# Log
+alias gl="git log --oneline --graph --branches --remotes --tags HEAD"
+alias gll="git log --graph --branches --remotes --tags HEAD"
+
+#
+# Utility
+#
+
+# Clear screen
+alias cs="clear && printf '\e[3J'"
 
 # Make a directory and cd into it
 mcd()

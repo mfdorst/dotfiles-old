@@ -3,20 +3,6 @@
     user = git
     name = Michael Dorst
 [alias]
-    s = status -s -u
-    l = log --oneline --graph --branches --remotes --tags HEAD
-    ll = log --graph --branches --remotes --tags HEAD
-	c = commit
-    ls = ls-tree -r --name-only
-    unstage = reset HEAD
-	fixup = commit --fixup HEAD
-	update = fetch --all --prune
-	co = checkout
-	b = branch
-	ds = diff --stat
-	d = diff
-	a = add
-	fap = fetch --all --prune
 	ld = log --oneline master..HEAD
 	lld = log master..HEAD
 [core]
