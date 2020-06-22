@@ -100,8 +100,9 @@ alias gco="git checkout"
 alias gst="git add . && git stash"
 
 # Reset
-alias gr="git reset --hard"
-alias gra="git add . && git reset --hard"
+alias gr="git reset"
+alias grh="git reset --hard"
+alias grah="git add . && git reset --hard"
 
 # Branch
 alias gb="git branch"
@@ -184,6 +185,9 @@ fi
 unset __conda_setup
 
 # pyenv
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+
 if command -v pyenv &> /dev/null; then
     eval "$(pyenv init -)"
 fi
