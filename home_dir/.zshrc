@@ -125,8 +125,10 @@ alias gd="git diff"
 alias gds="git diff --stat"
 
 # Log
-alias gl="git log --oneline --graph --branches --remotes --tags HEAD"
-alias gll="git log --graph --branches --remotes --tags HEAD"
+alias gl="git log --oneline --graph"
+alias gla="git log --oneline --graph --branches --remotes --tags HEAD"
+alias gll="git log --graph"
+alias glla="git log --graph --branches --remotes --tags HEAD"
 
 #
 # Utility
