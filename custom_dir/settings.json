@@ -40,8 +40,8 @@
   },
   "diffEditor.ignoreTrimWhitespace": false,
   "explorer.confirmDragAndDrop": false,
-  "workbench.colorTheme": "Cyberpunk",
   "window.zoomLevel": 0,
   "editor.formatOnSave": true,
-  "files.autoSave": "onFocusChange"
+  "files.autoSave": "onFocusChange",
+  "editor.fontSize": 14
 }

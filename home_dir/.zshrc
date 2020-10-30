@@ -6,7 +6,15 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # Oh-My-Zsh theme
-ZSH_THEME='spaceship'
+ZSH_THEME='robbyrussell'
+
+# To switch to the spaceship prompt, do:
+# echo spaceship > $HOME/.zshrc.theme
+
+# Load custom OMZ theme
+if [[ -e "$HOME/.zshrc.theme" ]]; then
+    ZSH_THEME=$(cat "$HOME/.zshrc.theme")
+fi
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"

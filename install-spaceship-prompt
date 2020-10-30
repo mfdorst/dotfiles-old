@@ -7,7 +7,7 @@ spaceship_dir = "#{themes_dir}/spaceship-prompt"
 
 unless File.exist? "#{themes_dir}/spaceship-prompt"
   puts 'Cloning spaceship-prompt from GitHub (mfdorst/spaceship-prompt)...'.blue
-  system "git clone https://github.com/mfdorst/spaceship-prompt '#{spaceship_dir}'"
+  system "git clone --depth 1 https://github.com/mfdorst/spaceship-prompt '#{spaceship_dir}'"
   puts 'Done.'.blue
 else
   STDERR.puts 'Spaceship prompt is already installed.'.green
