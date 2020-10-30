@@ -11,24 +11,13 @@ if File.exist? "#{HOME}/.oh-my-zsh"
   exit(1)
 end
 
-puts 'Downloading Oh-My-Zsh from GitHub (mfdorst/oh-my-zsh)...'.blue
-omz_url = 'https://raw.github.com/mfdorst/oh-my-zsh/install-noreplace-zshrc/tools/install.sh'
+puts 'Downloading Oh-My-Zsh from GitHub (ohmyzsh/ohmyzsh)...'.blue
+omz_url = 'https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh'
 omz_installer = `curl -fsSL #{omz_url}`
 puts 'Done.'.blue
 
 puts 'Running Oh-My-Zsh installer...'.blue
-puts 'Using custom repo (mfodrst/oh-my-zsh)'.yellow
 
-# Older versions of ruby don't support passing environment variables to +system+
-# As a hack, we just prepend the script with some variable definitions
-system %Q(
-  ZSH=~/.oh-my-zsh
-  REPO=mfdorst/oh-my-zsh
-  BRANCH=install-noreplace-zshrc
-  REPLACE_RC=no
-  CHSH=no
-  RUNZSH=no
-  #{omz_installer}
-)
+system '#{omz_installer} --unattended --keep-zshrc'
 
 puts 'Done.'.blue
