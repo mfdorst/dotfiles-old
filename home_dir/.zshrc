@@ -108,8 +108,9 @@ alias gco="git checkout"
 alias gst="git add . && git stash"
 
 # Reset
-alias gr="git reset --hard"
-alias gra="git add . && git reset --hard"
+alias gr="git reset"
+alias grh="git reset --hard"
+alias grah="git add . && git reset --hard"
 
 # Branch
 alias gb="git branch"
@@ -132,8 +133,10 @@ alias gd="git diff"
 alias gds="git diff --stat"
 
 # Log
-alias gl="git log --oneline --graph --branches --remotes --tags HEAD"
-alias gll="git log --graph --branches --remotes --tags HEAD"
+alias gl="git log --oneline --graph"
+alias gla="git log --oneline --graph --branches --remotes --tags HEAD"
+alias gll="git log --graph"
+alias glla="git log --graph --branches --remotes --tags HEAD"
 
 #
 # Utility
@@ -192,6 +195,9 @@ fi
 unset __conda_setup
 
 # pyenv
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+
 if command -v pyenv &> /dev/null; then
     eval "$(pyenv init -)"
 fi
